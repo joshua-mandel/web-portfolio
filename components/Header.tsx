@@ -3,10 +3,13 @@ import { motion } from "framer-motion"
 import Link from 'next/link';
 import { FaLinkedin, FaFacebookSquare, FaGithubSquare } from 'react-icons/fa'
 import { GrMail } from 'react-icons/gr'
+import { Social } from '@/typings';
 
-type Props = {};
+type Props = {
+  socials: Social[]
+};
 
-function Header({ }: Props) {
+function Header({ socials }: Props) {
   
   return (
     <header
@@ -30,13 +33,13 @@ function Header({ }: Props) {
       className="flex flex-row items-center">
         {/* Social Icons */}
         <Link href='https://www.linkedin.com/in/joshua-mandel-ab382919a/' target="_blank">
-          <FaLinkedin className='mr-3 text-xl md:text-2xl text-gray-300' />
+          <FaLinkedin className='mr-3 text-xl md:text-2xl text-gray-300 hover:text-[#F7AB0A]' />
         </Link>
         <Link href='https://www.facebook.com/coolwheezy' target="_blank">
-          <FaFacebookSquare className='mr-3 text-xl md:text-2xl text-gray-300' />
+          <FaFacebookSquare className='mr-3 text-xl md:text-2xl text-gray-300 hover:text-[#F7AB0A]' />
         </Link>
         <Link href='https://github.com/joshua-mandel' target="_blank">
-          <FaGithubSquare className='mr-3 text-xl md:text-2xl text-gray-300'  target="_blank"/>
+          <FaGithubSquare className='mr-3 text-xl md:text-2xl text-gray-300 hover:text-[#F7AB0A]'  target="_blank"/>
         </Link>
         
       </motion.div>
@@ -56,9 +59,9 @@ function Header({ }: Props) {
       transition={{
         duration: 1.5
       }}
-      className="flex flex-row items-center text-gray-300 cursor-pointer">
+      className="flex flex-row items-center text-gray-300 cursor-pointer hover:text-[#F7AB0A]">
         <GrMail className="cursor-pointer mr-2 text-xl md:text-2xl" />
-        <p className="uppercase hidden md:inline-flex text-sm text-gray-400">Get in touch</p>
+        <p className="uppercase hidden md:inline-flex text-sm">Get in touch</p>
       </motion.div>
       </Link>
     </header>
