@@ -17,9 +17,6 @@ export declare interface VisionToolConfig extends Partial<VisionConfig> {
   icon?: ComponentType
 }
 
-export {}
-
-
 export default defineConfig({
   name: 'default',
   title: 'web-portfolio',

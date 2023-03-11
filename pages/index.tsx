@@ -24,7 +24,7 @@ type Props = {
 }
 
 const client = createClient({
-  projectId: "ve8fo00y",
+  projectId: 've8fo00y',
   dataset: "production",
   apiVersion: "2023-03-11",
   useCdn: false
