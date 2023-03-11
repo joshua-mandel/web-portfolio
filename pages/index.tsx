@@ -17,6 +17,7 @@ import { fetchExperiences } from '@/utils/fetchExperiences'
 import { fetchSkills } from '@/utils/fetchSkills'
 import { fetchProjects } from '@/utils/fetchProjects'
 import { fetchSocials } from '@/utils/fetchSocials'
+import { createClient } from "next-sanity";
 import Projects from '@/components/Projects'
 
 type Props = {
@@ -27,9 +28,16 @@ type Props = {
   socials: Social[];
 }
 
+const client = createClient({
+  projectId: "ve8fo00y",
+  dataset: "production",
+  apiVersion: "2023-03-11",
+  useCdn: false
+});
+
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home({pageInfo, experiences, projects, skills, socials}: Props) {
+export default function Home({ pageInfo, experiences, projects, skills, socials }: Props) {
   return (
     <div className='bg-[rgb(36,36,36)] text-white h-screen snap-y snap-mandatory overflow-y-scroll overflow-x-hidden z-0 scrollbar scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]'>
       <Head>
@@ -66,14 +74,14 @@ export default function Home({pageInfo, experiences, projects, skills, socials}:
         <ContactMe />
       </section>
 
-      
-        <footer className='sticky bottom-5 w-full'>
-          <div className='flex items-center justify-center'>
+
+      <footer className='sticky bottom-5 w-full'>
+        <div className='flex items-center justify-center'>
           <Link href='#hero' className='cursor-pointer'>
             <HomeIcon className='h-5 w-5 rounded-full filter grayscale hover:text-gray-500' />
           </Link>
-          </div>
-        </footer>
+        </div>
+      </footer>
 
 
     </div>
@@ -81,11 +89,11 @@ export default function Home({pageInfo, experiences, projects, skills, socials}:
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const pageInfo: PageInfo = await fetchPageInfo();
-  const experiences: Experience[] = await fetchExperiences();
-  const skills: Skill[] = await fetchSkills();
-  const projects: Project[] = await fetchProjects();
-  const socials: Social[] = await fetchSocials();
+  const pageInfo: PageInfo = await client.fetch(`*[_type == "pageInfo"][0]`);
+  const experiences: Experience[] = await client.fetch(`*[_type == "experience"] {..., technologies[]->}`);
+  const skills: Skill[] = await client.fetch(`*[_type == "skill"]`);
+  const projects: Project[] = await client.fetch(`  *[_type == "project"] {..., technologies[]-> }`);
+  const socials: Social[] = await client.fetch(` *[_type == "social"] `);
 
   return {
     props: {
